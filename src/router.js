@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Movies from "./views/Movies.vue";
+import Albums from "./views/Albums.vue";
 
 Vue.use(Router);
 
@@ -11,12 +11,12 @@ export default new Router({
     {
       path: "/",
       name: "index",
-      component: Movies
+      component: Albums
     },
     {
-      path: "/movies",
-      name: "movies",
-      component: Movies
+      path: "/albums",
+      name: "albums",
+      component: Albums
     },
     {
       path: "/people",
@@ -24,13 +24,7 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "people" */ "./views/People.vue")
     },
-    {
-      path: "/movie/:id",
-      name: "movie",
-      component: () =>
-        import(/* webpackChunkName: "movie" */ "./views/Movie.vue"),
-      props: route => ({ id: route.params.id })
-    },
+
     {
       path: "/people/:id",
       name: "person",

@@ -57,23 +57,10 @@ import imageUrlBuilder from "@sanity/image-url";
 
 const imageBuilder = imageUrlBuilder(sanity);
 
-const query = `*[_type == "movie" && _id == $id] {
-  _id,
+const query = `*[_type == 'album'] {
   title,
-  overview,
-  releaseDate,
-  poster,
-  "posterUrl": poster.asset->url,
-  "cast": castMembers[] {
-    _key,
-    characterName,
-    "person": person-> {
-      _id,
-      name,
-      image
-    }
-  }
-}[0]
+  images
+}
 `;
 
 export default {
@@ -103,38 +90,13 @@ export default {
       this.error = this.movie = null;
       this.loading = true;
 
-      const serializers = {
-        types: {
-          summaries: props => {
-            const h = blocksToHtml.h;
-
-            if (!props.node.summaries) {
-              return false;
-            }
-
-            const summariesArray = props.node.summaries.map(summary => {
-              return h("div", null, [
-                h("p", null, summary.summary),
-                h("span", null, "—"),
-                h("a", { href: summary.url }, summary.author)
-              ]);
-            });
-
-            return h("div", [
-              h("h1", null, props.node.caption),
-              h("div", null, summariesArray)
-            ]);
-          }
-        }
-      };
-
       sanity.fetch(query, { id: this.id }).then(
         movie => {
           this.loading = false;
           this.movie = movie;
           this.overviewHtml = blocksToHtml({
             blocks: movie.overview,
-            serializers: serializers,
+
             dataset: sanity.clientConfig.dataset,
             projectId: sanity.clientConfig.projectId
           });

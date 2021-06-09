@@ -33,6 +33,34 @@ export default {
               ]
             },
             {
+              // name: "imageDimensions",
+              // title: "Image Dimensions",
+              // type: "object",
+
+              // fields: [
+              // {
+              name: "width",
+              title: "Width",
+              type: "number",
+              initialValue: 1,
+              validation: Rule =>
+                Rule.required()
+                  .min(1)
+                  .max(3)
+            },
+            {
+              name: "height",
+              title: "Height",
+              type: "number",
+              initialValue: 1,
+              validation: Rule =>
+                Rule.required()
+                  .min(1)
+                  .max(3)
+              // }
+              // ]
+            },
+            {
               name: "image",
               title: "Image",
               type: "image"

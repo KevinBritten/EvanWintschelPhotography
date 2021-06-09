@@ -1,44 +1,82 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/albums">
-        Albums
+      <router-link v-for='album in albums'  :key='album.title' :to="'/album/' + album.title">
+        {{album.title}}
       </router-link>
-      <router-link to="/people">
-        People
-      </router-link>
+    
     </nav>
-    <router-view />
-   
+
+    <transition name='fade' mode='out-in'>
+    <router-view :key='$route.fullPath'></router-view></transition>
+    <site-footer></site-footer>
   </div>
 </template>
 
 <script>
+import sanity from "./sanity";
+
+import SiteFooter from "./components/SiteFooter.vue";
+
+const query = `*[_type == "album"]`;
+
 export default {
-  name: "app"
+  name: "app",
+  components: { SiteFooter },
+  data() {
+    return {
+      albums: []
+    };
+  },
+  created() {
+    this.fetchData();
+  },
+  methods: {
+    fetchData() {
+      this.error = this.post = null;
+      sanity.fetch(query).then(
+        albums => {
+          this.albums = albums;
+        },
+        error => {
+          this.error = error;
+        }
+      );
+    }
+  }
 };
 </script>
 
 <style scoped>
+.fade-enter-active {
+  transition: all 0.8s ease;
+}
+.fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.fade-enter,
+.fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
 #app {
   margin: 0;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  padding: 3.5rem 0 0;
-}
-
-footer {
-  padding: 5rem 1rem;
-  text-align: center;
-  font-size: 1rem;
-}
-
-footer img {
-  display: inline-block;
-  height: 1em;
-  width: auto;
+  padding: 3.5rem 0 100px;
+  width: 100%;
+  height: 100%;
+  min-height: 150vh;
+  position: relative;
 }
 
 nav {
@@ -70,47 +108,7 @@ body {
   margin: 0;
   padding: 0;
 }
-
-.loading {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.list {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-}
-
-.list > li {
-  display: block;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: stretch;
-}
-
-.list a {
-  text-decoration: none;
-  display: block;
-  flex-grow: 1;
-  color: #333;
-}
-
-.list h3 {
-  margin: 0;
-  padding: 0;
-  line-height: 1em;
-}
-
-.list img {
-  display: block;
-  height: auto;
-  width: 100%;
-  margin-right: 0.5rem;
+* {
+  box-sizing: border-box;
 }
 </style>

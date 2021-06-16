@@ -1,16 +1,16 @@
 <template>
-  <div id="app">
+   <div id="app">
     <nav>
-      <router-link v-for='album in albums'  :key='album.title' :to="'/album/' + album.title">
-        {{album.title}}
-      </router-link>
-    
-    </nav>
-
+        <router-link v-for='album in albums' :key='album.title' :to="'/album/' + album.title">
+            {{album.title}}
+        </router-link>
+     </nav>
     <transition name='fade' mode='out-in'>
-    <router-view :key='$route.fullPath'></router-view></transition>
+        <router-view :key='$route.fullPath'>
+        </router-view>
+    </transition>
     <site-footer></site-footer>
-  </div>
+</div>
 </template>
 
 <script>
@@ -23,9 +23,10 @@ const query = `*[_type == "album"]`;
 export default {
   name: "app",
   components: { SiteFooter },
+
   data() {
     return {
-      albums: []
+      albums: [],
     };
   },
   created() {
@@ -35,15 +36,15 @@ export default {
     fetchData() {
       this.error = this.post = null;
       sanity.fetch(query).then(
-        albums => {
+        (albums) => {
           this.albums = albums;
         },
-        error => {
+        (error) => {
           this.error = error;
         }
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -51,21 +52,23 @@ export default {
 .fade-enter-active {
   transition: all 0.8s ease;
 }
+
 .fade-leave-active {
   transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
 }
+
 .fade-enter,
 .fade-leave-to {
   transform: translateX(10px);
   opacity: 0;
 }
-.fade-enter-to {
-  opacity: 1;
-}
+
+opacity: 1;
 
 body::-webkit-scrollbar {
   display: none;
 }
+
 #app {
   margin: 0;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -108,6 +111,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 * {
   box-sizing: border-box;
 }

@@ -6,10 +6,10 @@
 
 <script>
 export default {
-  props: ["title"],
+  props: ["title", "gridColumns"],
   data() {
     return {
-      titlePosition: Math.floor(Math.random() * 4)
+      titlePosition: Math.floor(Math.random() * (this.gridColumns + 1))
     };
   }
 };

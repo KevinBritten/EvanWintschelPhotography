@@ -1,34 +1,52 @@
 <template>
-
-<div class="album-container">
-<title-card :title='`${album[0].title}`'></title-card>  <div  class='image-container' v-for="image, index in album[0].images" :key="image.key" 
-  :style="{'grid-row-end': `span ${image.height || 1}`,
-  'grid-column-end': `span ${image.width || 1}`,
+  <div>
+    <content-grid>
+      <title-card :title="`${album[0].title}`" :grid-columns="gridColumns"></title-card>
+      <div
+        class="image-container"
+        :key="image.key"
+        v-for="image in album[0].images"
+        :style="{
+  'grid-column-end': calculateGridItemWidth(image.width),
+    'grid-row-end':   `span ${image.height || 1}`,
    'border-top-color' : calculateBorderColor(index, 'top'),
    'border-bottom-color' : calculateBorderColor(index, 'bottom'),
-   }" >
-  <img :src="imageUrlFor(image.image)"> 
+   }"
+      >
+
+
+
+        <img :src="imageUrlFor(image.image)" />
+      </div>
+
+      
+    </content-grid>
   </div>
-</div>
-  
 </template>
 
 <script>
 import sanity from "../sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import TitleCard from "../components/TitleCard.vue";
+import ContentGrid from "../components/ContentGrid.vue";
 
 const imageBuilder = imageUrlBuilder(sanity);
 export default {
-  components: { TitleCard },
+  components: { TitleCard, ContentGrid },
   name: "album",
   data() {
     return {
-      album: []
+      album: [],
+      breakpoints: [767, 991, 1400],
+      gridColumns: 0,
     };
   },
   created() {
     this.fetchData();
+    this.gridColumns =
+      this.breakpoints.findIndex((b) => {
+        return window.innerWidth < b;
+      }) + 1 || 3;
   },
   methods: {
     imageUrlFor(source) {
@@ -41,11 +59,10 @@ export default {
 
       this.error = this.post = null;
       sanity.fetch(query).then(
-        album => {
-          console.log(album);
+        (album) => {
           this.album = album;
         },
-        error => {
+        (error) => {
           this.error = error;
         }
       );
@@ -56,31 +73,25 @@ export default {
         "rgb(0, 0, 0, " +
         parseFloat(index * 0.05 + sideModifier).toFixed(2) +
         ")";
-      console.log(borderColor);
       return borderColor;
-    }
-  }
+    },
+    calculateGridItemWidth(size) {
+      const computedSize = size > this.gridColumns ? this.gridColumns : size;
+      return `span ${computedSize}`;
+    },
+  },
 };
 </script>
 
 <style scoped>
-.album-container {
-  height: 100%;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  /* grid-auto-rows: minmax(0, 1fr); */
-  grid-gap: 10px;
-  margin: 20px;
-  grid-auto-flow: dense;
-  padding: 0 0 20px 0;
-}
 .image-container {
   display: flex;
   border-bottom: solid 3px;
-  border-top: solid 3px;
-  padding: 10px 2%;
+  /* border-top: solid 2px; */
+  padding: 20px 10px;
+  margin: 10px;
 }
+
 img {
   display: block;
   width: 100%;

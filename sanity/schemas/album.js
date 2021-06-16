@@ -73,7 +73,6 @@ export default {
             },
             prepare(selection) {
               const { title, media } = selection;
-              console.log(selection);
               return {
                 title: title.name,
                 media: media

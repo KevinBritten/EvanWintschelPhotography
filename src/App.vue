@@ -1,16 +1,20 @@
 <template>
-   <div id="app">
+  <div id="app">
     <nav>
-        <router-link v-for='album in albums' :key='album.title' :to="'/album/' + album.title">
-            {{album.title}}
-        </router-link>
-     </nav>
-    <transition name='fade' mode='out-in'>
-        <router-view :key='$route.fullPath'>
-        </router-view>
+      <router-link :to="'/'">Home</router-link>
+      <router-link
+        v-for="album in albums"
+        :key="album.title"
+        :to="'/album/' + album.title"
+      >
+        {{ album.title }}
+      </router-link>
+    </nav>
+    <transition name="fade" mode="out-in">
+      <router-view :key="$route.fullPath"> </router-view>
     </transition>
     <site-footer></site-footer>
-</div>
+  </div>
 </template>
 
 <script>
@@ -62,8 +66,6 @@ export default {
   transform: translateX(10px);
   opacity: 0;
 }
-
-opacity: 1;
 
 body::-webkit-scrollbar {
   display: none;

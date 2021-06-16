@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Album from "./views/Album.vue";
+import Home from "./views/Home.vue";
 
 Vue.use(Router);
 
@@ -11,7 +12,12 @@ export default new Router({
     {
       path: "/album/:album",
       name: "album",
-      component: Album
-    }
-  ]
+      component: Album,
+    },
+    {
+      path: "/",
+      name: "home",
+      component: Home,
+    },
+  ],
 });

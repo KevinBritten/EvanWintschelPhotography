@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       breakpoints: [767, 991, 1400],
-      gridColumns: 0
+      gridColumns: 0,
     };
   },
   methods: {
@@ -20,14 +20,14 @@ export default {
     },
     setGridColumnQuantity() {
       this.gridColumns =
-        this.breakpoints.findIndex(b => {
+        this.breakpoints.findIndex((b) => {
           return window.innerWidth < b;
         }) + 1 || 3;
-    }
+    },
   },
   created() {
     this.setGridColumnQuantity();
-  }
+  },
 };
 </script>
 

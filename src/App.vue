@@ -11,9 +11,9 @@
       </router-link>
     </nav>
     <transition name="fade" mode="out-in">
-      <router-view :key="$route.fullPath"> </router-view>
+      <router-view :key="$route.fullPath" />
     </transition>
-    <site-footer></site-footer>
+    <site-footer />
   </div>
 </template>
 
@@ -34,19 +34,25 @@ export default {
     };
   },
   created() {
-    this.fetchData();
+    this.setAlbums();
   },
   methods: {
     fetchData() {
       this.error = this.post = null;
-      sanity.fetch(query).then(
+
+      return sanity.fetch(query).then(
         (albums) => {
-          this.albums = albums;
+          return albums;
         },
         (error) => {
           this.error = error;
         }
       );
+    },
+    async setAlbums() {
+      const payload = await this.fetchData();
+      this.$store.commit("setAlbums", payload);
+      this.albums = this.$store.state.albums;
     },
   },
 };

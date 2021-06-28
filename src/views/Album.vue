@@ -1,25 +1,33 @@
 <template>
   <div>
-    <content-grid>
-      <title-card :title="`${album[0].title}`" :grid-columns="gridColumns"></title-card>
+    <content-grid v-if="album">
+      <title-card :title="`${album.title}`" :grid-columns="gridColumns" />
       <div
         class="image-container"
         :key="image.key"
-        v-for="image in album[0].images"
+        v-for="(image, index) in album.images"
         :style="{
-  'grid-column-end': calculateGridItemWidth(image.width),
-    'grid-row-end':   `span ${image.height || 1}`,
-   'border-top-color' : calculateBorderColor(index, 'top'),
-   'border-bottom-color' : calculateBorderColor(index, 'bottom'),
-   }"
+          'grid-column-end': calculateGridItemWidth(image.width),
+          'grid-row-end': `span ${image.height || 1}`,
+          'border-top-color': calculateBorderColor(index, 'top'),
+          'border-bottom-color': calculateBorderColor(index, 'bottom'),
+        }"
       >
-
-
-
-        <img :src="imageUrlFor(image.image)" />
+        <img
+          :srcset="`${imageUrlFor(image.image).width(300)} 300w,
+                    ${imageUrlFor(image.image).width(600)} 600w,
+                    ${imageUrlFor(image.image).width(800)} 800w,          
+                    ${imageUrlFor(image.image).width(1200)} 1200w,          
+                    ${imageUrlFor(image.image).width(1600)} 1600w,          
+                    ${imageUrlFor(image.image).width(2000)} 2000w,          
+           `"
+          sizes="(min-width: 767px) 50vw,
+           (min-width: 991px) 33vw,
+           100vw,"
+          :src="`${imageUrlFor(image.image)}`"
+          :alt="image.imageName.name"
+        />
       </div>
-
-      
     </content-grid>
   </div>
 </template>
@@ -36,13 +44,20 @@ export default {
   name: "album",
   data() {
     return {
-      album: [],
       breakpoints: [767, 991, 1400],
       gridColumns: 0,
     };
   },
+  computed: {
+    album() {
+      return this.$store.state.albums.find((album) => {
+        return (
+          this.$route.params.album.toLowerCase() == album.title.toLowerCase()
+        );
+      });
+    },
+  },
   created() {
-    this.fetchData();
     this.gridColumns =
       this.breakpoints.findIndex((b) => {
         return window.innerWidth < b;
@@ -51,21 +66,6 @@ export default {
   methods: {
     imageUrlFor(source) {
       return imageBuilder.image(source);
-    },
-    fetchData() {
-      const query = `*[_type == "album" && title == '${
-        this.$route.params.album
-      }']`;
-
-      this.error = this.post = null;
-      sanity.fetch(query).then(
-        (album) => {
-          this.album = album;
-        },
-        (error) => {
-          this.error = error;
-        }
-      );
     },
     calculateBorderColor(index, side) {
       const sideModifier = side === "top" ? 0.1 : 0.3;

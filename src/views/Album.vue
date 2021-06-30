@@ -1,13 +1,17 @@
 <template>
   <div>
-    <content-grid v-if="album">
-      <title-card :title="`${album.title}`" :grid-columns="gridColumns" />
-      <!-- <image-card
-        :key="image.key"
+    <ContentGrid v-if="album">
+      <TitleCard :title="`${album.title}`" :grid-columns="gridColumns" />
+      <!-- <transition-group name="fade" tag="div" class="instruments"> -->
+      <ImageCard
         v-for="(image, index) in album.images"
+        :key="image.key"
         :image="image"
         :index="index"
-      /> -->
+        :grid-columns="gridColumns"
+        @imageLoaded="showImage"
+      />
+      <!-- </transition-group> -->
       <!-- <div
         class="image-container"
         :key="image.key"
@@ -34,7 +38,7 @@
           :alt="image.imageName.name"
         />
       </div> -->
-    </content-grid>
+    </ContentGrid>
   </div>
 </template>
 
@@ -43,17 +47,18 @@ import sanity from "../sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import TitleCard from "../components/TitleCard.vue";
 import ContentGrid from "../components/ContentGrid.vue";
-// import ImageCard from "../components/ImageCard.vue";
+import ImageCard from "../components/ImageCard.vue";
 
 const imageBuilder = imageUrlBuilder(sanity);
 export default {
-  name: "album",
-  // components: { TitleCard, ContentGrid, ImageCard },
-  components: { TitleCard, ContentGrid },
+  name: "Album",
+  components: { TitleCard, ContentGrid, ImageCard },
+  // components: { TitleCard, ContentGrid },
   data() {
     return {
       breakpoints: [767, 991, 1400],
       gridColumns: 0,
+      loadedImages: [],
     };
   },
   computed: {
@@ -70,6 +75,11 @@ export default {
       this.breakpoints.findIndex((b) => {
         return window.innerWidth < b;
       }) + 1 || 3;
+  },
+  methods: {
+    showImage(index) {
+      this.loadedImages.push(index);
+    },
   },
   // methods: {
   //   // imageUrlFor(source) {
@@ -91,3 +101,21 @@ export default {
 };
 </script>
 
+<style scoped>
+/* .fade-enter-active {
+  transition: all 0.8s ease;
+} */
+
+/* .fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+} */
+
+/* .fade-enter,
+.fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+} */
+.instruments {
+  height: 100%;
+}
+</style>

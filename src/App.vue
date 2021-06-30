@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    sefsef
     <nav>
       <router-link :to="'/'">Home</router-link>
       <router-link
@@ -14,7 +13,7 @@
     <transition name="fade" mode="out-in">
       <router-view :key="$route.fullPath" />
     </transition>
-    <site-footer />
+    <SiteFooter />
   </div>
 </template>
 

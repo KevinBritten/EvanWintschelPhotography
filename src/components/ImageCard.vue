@@ -4,10 +4,18 @@
     :style="{
       'grid-column-end': calculateGridItemWidth(image.width),
       'grid-row-end': `span ${image.height || 1}`,
-      'border-top-color': calculateBorderColor(index, 'top'),
       'border-bottom-color': calculateBorderColor(index, 'bottom'),
     }"
   >
+    <!-- <div
+    class="image-container"
+    :style="{
+      'grid-column-end': calculateGridItemWidth(image.width),
+      'grid-row-end': `span ${image.height || 1}`,
+      'border-top-color': calculateBorderColor(index, 'top'),
+      'border-bottom-color': calculateBorderColor(index, 'bottom'),
+    }"
+  > -->
     <!-- <div class="image-container"> -->
     <!-- <img
       :srcset="`${imageUrlFor(image.image).width(300)} 300w,
@@ -53,12 +61,17 @@ export default {
     imageUrlFor(source) {
       return imageBuilder.image(source);
     },
-    calculateBorderColor(index, side) {
-      const sideModifier = side === "top" ? 0.1 : 0.3;
+    // calculateBorderColor(index, side) {
+    //   const sideModifier = side === "top" ? 0.1 : 0.3;
+    //   const borderColor =
+    //     "rgb(0, 0, 0, " +
+    //     parseFloat(index * 0.05 + sideModifier).toFixed(2) +
+    //     ")";
+    //   return borderColor;
+    // },
+    calculateBorderColor(index) {
       const borderColor =
-        "rgb(0, 0, 0, " +
-        parseFloat(index * 0.05 + sideModifier).toFixed(2) +
-        ")";
+        "rgb(0, 0, 0, " + parseFloat((index + 1) * 0.07).toFixed(2) + ")";
       return borderColor;
     },
     calculateGridItemWidth(size) {
@@ -72,7 +85,7 @@ export default {
 <style scoped>
 .image-container {
   display: flex;
-  border-bottom: solid 3px;
+  /* border-bottom: solid 3px; */
   /* border-top: solid 2px; */
   padding: 20px 10px;
   margin: 10px;

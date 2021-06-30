@@ -101,6 +101,7 @@ nav {
   font-size: 1rem;
   height: 3.5rem;
   justify-content: flex-start;
+  z-index: 10;
 }
 
 nav a {

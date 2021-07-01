@@ -9,8 +9,14 @@
         :image="image"
         :index="index"
         :grid-columns="gridColumns"
-        @imageLoaded="showImage"
       />
+      <!-- <ImageCard
+        v-for="(image, index) in album.images"
+        :key="image.key"
+        :image="image"
+        :index="index"
+        :grid-columns="gridColumns"
+      /> -->
       <!-- </transition-group> -->
       <!-- <div
         class="image-container"
@@ -58,7 +64,7 @@ export default {
     return {
       breakpoints: [767, 991, 1400],
       gridColumns: 0,
-      loadedImages: [],
+      // loadedImages: {},
     };
   },
   computed: {
@@ -69,6 +75,9 @@ export default {
         );
       });
     },
+    // loadedImagesComputed() {
+    //   return this.loadedImages;
+    // },
   },
   created() {
     this.gridColumns =
@@ -77,9 +86,10 @@ export default {
       }) + 1 || 3;
   },
   methods: {
-    showImage(index) {
-      this.loadedImages.push(index);
-    },
+    // showImage(index) {
+    //   console.log(index);
+    //   this.loadedImages[index] = true;
+    // },
   },
   // methods: {
   //   // imageUrlFor(source) {

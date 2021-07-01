@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ContentGrid v-if="album">
+    <ContentGrid v-if="!lightboxOpen">
       <TitleCard :title="`${album.title}`" :grid-columns="gridColumns" />
       <!-- <transition-group name="fade" tag="div" class="instruments"> -->
       <ImageCard
@@ -9,6 +9,7 @@
         :image="image"
         :index="index"
         :grid-columns="gridColumns"
+        @click="toggleLightbox"
       />
       <!-- <ImageCard
         v-for="(image, index) in album.images"
@@ -45,6 +46,7 @@
         />
       </div> -->
     </ContentGrid>
+    <div v-else class="lightbox">a lioghtbox</div>
   </div>
 </template>
 
@@ -64,6 +66,7 @@ export default {
     return {
       breakpoints: [767, 991, 1400],
       gridColumns: 0,
+      lightboxOpen: false,
       // loadedImages: {},
     };
   },
@@ -86,6 +89,9 @@ export default {
       }) + 1 || 3;
   },
   methods: {
+    toggleLightbox() {
+      this.lightboxOpen = !this.lightboxOpen;
+    },
     // showImage(index) {
     //   console.log(index);
     //   this.loadedImages[index] = true;

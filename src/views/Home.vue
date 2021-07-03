@@ -2,10 +2,7 @@
   <div>
     <content-grid>
       <div class="homepage-item-container">
-        <p>
-          This is Evan's bio. He can edit in some text here, about phoptography
-          and other things.
-        </p>
+        <p style="font-size: 4rem; text-align: center">EVAN<br />WINTSCHEL</p>
       </div>
       <div class="homepage-item-container">
         <p>

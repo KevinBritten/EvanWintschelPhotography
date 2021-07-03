@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{ 'overflow-hidden': $store.state.lightboxOpen }">
     <nav>
       <router-link :to="'/'">Home</router-link>
       <router-link
@@ -33,6 +33,11 @@ export default {
       albums: [],
     };
   },
+  computed: {
+    lightboxOpen() {
+      return this.$store.state.lightboxOpen;
+    },
+  },
   created() {
     this.setAlbums();
   },
@@ -53,6 +58,15 @@ export default {
       const payload = await this.fetchData();
       this.$store.commit("setAlbums", payload);
       this.albums = this.$store.state.albums;
+    },
+  },
+  watch: {
+    lightboxOpen() {
+      if (this.lightboxOpen) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "initial";
+      }
     },
   },
 };
@@ -101,7 +115,7 @@ nav {
   font-size: 1rem;
   height: 3.5rem;
   justify-content: flex-start;
-  z-index: 10;
+  z-index: 30;
 }
 
 nav a {
@@ -110,6 +124,10 @@ nav a {
   text-align: center;
   padding: 0 1rem;
   font-weight: 700;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 </style>
 
@@ -121,7 +139,14 @@ body {
   padding: 0;
 }
 
-* {
-  box-sizing: border-box;
+@media only screen and (max-width: 991px) {
+  * {
+    box-sizing: border-box;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }
 </style>

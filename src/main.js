@@ -3,18 +3,11 @@ import App from "./App.vue";
 import router from "./router";
 import Vuex from "vuex";
 
+import Store from "./store.js";
+
 Vue.config.productionTip = false;
 Vue.use(Vuex);
-const store = new Vuex.Store({
-  state: {
-    albums: [],
-  },
-  mutations: {
-    setAlbums(state, payload) {
-      state.albums = payload;
-    },
-  },
-});
+const store = new Vuex.Store(Store);
 new Vue({
   router,
   store,

@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div v-if="!allImagesLoaded" class="loading">jwalkdjwlakjwdwa</div>
+    <transition name="fade">
+      <div v-if="!allImagesLoaded" class="loading-overlay">...LOADING</div>
+    </transition>
     <div
       ref="lightbox"
       class="lightbox"
       :class="{ '--visible': allImagesLoaded }"
     >
-      <span class="close-button" @click="$emit('closeLightbox', $event)">
-        X
-      </span>
+      <span class="close-button" @click="$emit('closeLightbox')"> X </span>
       <span class="nav-arrow" @click="$emit('incrementSlide', -1)"> &lt; </span>
       <span class="nav-arrow --next" @click="$emit('incrementSlide', 1)">
         >
@@ -18,6 +18,7 @@
         :key="image.imageName.name"
         :ref="`image${index}`"
         class="image-contianer"
+        :class="{ 'image-container--last': isLastImage(index) }"
       >
         <img
           :srcset="`
@@ -49,6 +50,9 @@ export default {
   data() {
     return { loadedImages: 0 };
   },
+  created() {
+    window.addEventListener("keydown", (e) => this.incrementSlideKey(e));
+  },
   computed: {
     allImagesLoaded() {
       return this.loadedImages == this.album.images.length;
@@ -67,6 +71,18 @@ export default {
         this.$refs[`image${this.currentIndex}`][0].offsetLeft;
       this.$refs["lightbox"].scrollLeft = scrollPosition;
     },
+    incrementSlideKey(e) {
+      if (e.keyCode === 39) {
+        this.$emit("incrementSlide", 1);
+      } else if (e.keyCode === 37) {
+        this.$emit("incrementSlide", -1);
+      } else if (e.keyCode === 27) {
+        this.$emit("closeLightbox");
+      }
+    },
+    isLastImage(index) {
+      return index == this.album.images.length - 1;
+    },
   },
 };
 </script>
@@ -84,6 +100,7 @@ export default {
   background-color: white;
   opacity: 0;
   transition: opacity 500ms ease-in;
+  z-index: 20;
 }
 
 .--visible {
@@ -91,11 +108,28 @@ export default {
   scroll-behavior: smooth;
 }
 
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 10em;
+  background-color: white;
+  z-index: 100;
+  opacity: 0.3;
+}
+
 .close-button,
 .nav-arrow {
   position: fixed;
   font-size: 50px;
   z-index: 15;
+  cursor: pointer;
+  user-select: none;
 }
 .close-button {
   right: 2rem;
@@ -104,12 +138,12 @@ export default {
 
 .nav-arrow {
   top: 50%;
-  left: 3.5rem;
+  left: 2%;
 }
 
 .--next {
   left: auto;
-  right: 3.5rem;
+  right: 2%;
 }
 
 .image-contianer {
@@ -121,7 +155,41 @@ export default {
 }
 
 img {
-  height: 100%;
+  /* height: 100%; */
   object-fit: contain;
+}
+
+@media only screen and (max-width: 991px) {
+  .nav-arrow {
+    display: none;
+  }
+  .image-contianer {
+    min-width: none;
+    margin-right: 100px;
+    padding: 2%;
+  }
+  .image-container--last {
+    margin-right: 0;
+  }
+  .lightbox {
+    overflow: scroll;
+  }
+}
+
+.fade-enter-active {
+  transition: opacity 4s;
+}
+.fade-leave-active {
+  transition: opacity 0.1s;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-to {
+  opacity: 0.4;
+}
+.fade-leave-to {
+  opacity: 0;
 }
 </style>>

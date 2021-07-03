@@ -28,6 +28,11 @@ export default {
   created() {
     this.setGridColumnQuantity();
   },
+  beforeRouteEnter(to, from, next) {
+    console.log("awdaw");
+    document.scrollingElement.scrollTop = 0;
+    next();
+  },
 };
 </script>
 
@@ -43,6 +48,11 @@ export default {
 @media only screen and (max-width: 991px) {
   .content-grid {
     grid-template-columns: repeat(2, 1fr);
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .content-grid::-webkit-scrollbar {
+    display: none;
   }
 }
 @media only screen and (max-width: 767px) {

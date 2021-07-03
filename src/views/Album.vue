@@ -1,6 +1,9 @@
 <template>
   <div>
-    <ContentGrid v-if="!lightboxOpen">
+    <!-- <transition name="fade-out" mode="out-in"> -->
+
+    <!-- </transition> -->
+    <ContentGrid>
       <TitleCard :title="`${album.title}`" :grid-columns="gridColumns" />
       <!-- <transition-group name="fade" tag="div" class="instruments"> -->
       <ImageCard
@@ -8,8 +11,9 @@
         :key="image.key"
         :image="image"
         :index="index"
+        :ref="index"
         :grid-columns="gridColumns"
-        @click="toggleLightbox"
+        @toggleLightbox="toggleLightbox"
       />
       <!-- <ImageCard
         v-for="(image, index) in album.images"
@@ -46,7 +50,13 @@
         />
       </div> -->
     </ContentGrid>
-    <div v-else class="lightbox">a lioghtbox</div>
+    <Lightbox
+      v-if="lightboxOpen"
+      :album="album"
+      @closeLightbox="toggleLightbox"
+      :currentIndex="currentIndex"
+      @incrementSlide="incrementSlide"
+    />
   </div>
 </template>
 
@@ -56,17 +66,19 @@ import imageUrlBuilder from "@sanity/image-url";
 import TitleCard from "../components/TitleCard.vue";
 import ContentGrid from "../components/ContentGrid.vue";
 import ImageCard from "../components/ImageCard.vue";
+import Lightbox from "../components/Lightbox.vue";
 
 const imageBuilder = imageUrlBuilder(sanity);
 export default {
   name: "Album",
-  components: { TitleCard, ContentGrid, ImageCard },
+  components: { TitleCard, ContentGrid, ImageCard, Lightbox },
   // components: { TitleCard, ContentGrid },
   data() {
     return {
       breakpoints: [767, 991, 1400],
       gridColumns: 0,
       lightboxOpen: false,
+      currentIndex: 0,
       // loadedImages: {},
     };
   },
@@ -82,6 +94,7 @@ export default {
     //   return this.loadedImages;
     // },
   },
+  // 10 -1 9 10 20 10
   created() {
     this.gridColumns =
       this.breakpoints.findIndex((b) => {
@@ -89,8 +102,17 @@ export default {
       }) + 1 || 3;
   },
   methods: {
-    toggleLightbox() {
+    toggleLightbox(index) {
+      this.currentIndex = index;
       this.lightboxOpen = !this.lightboxOpen;
+    },
+    incrementSlide(direction) {
+      const albumSize = this.album.images.length;
+      const updatedIndex = (this.currentIndex += direction);
+      this.currentIndex =
+        updatedIndex < 0 || updatedIndex >= albumSize
+          ? (updatedIndex + albumSize) % albumSize
+          : updatedIndex;
     },
     // showImage(index) {
     //   console.log(index);
@@ -118,20 +140,19 @@ export default {
 </script>
 
 <style scoped>
-/* .fade-enter-active {
-  transition: all 0.8s ease;
-} */
+/* .fade-out-leave-active {
+  transition: all 3s;
+}
 
-/* .fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+.fade-out-leave-to {
+  transform: translateX(10%);
 } */
+.lightbox {
+  display: flex;
+  height: 100vh;
+}
 
-/* .fade-enter,
-.fade-leave-to {
-  transform: translateX(10px);
-  opacity: 0;
-} */
-.instruments {
+.lightbox {
   height: 100%;
 }
 </style>

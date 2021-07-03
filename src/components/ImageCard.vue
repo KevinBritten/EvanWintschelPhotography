@@ -7,6 +7,7 @@
       'grid-row-end': `span ${image.height || 1}`,
       'border-bottom-color': calculateBorderColor(index, 'bottom'),
     }"
+    @click="$emit('toggleLightbox', index)"
   >
     <!-- <div
     class="image-container"

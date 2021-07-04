@@ -1,6 +1,6 @@
 <template>
-  <div class='site-footer'>
-<p> EVAN WINTSCHEL </p>
+  <div class="site-footer">
+    <p>EVAN WINTSCHEL</p>
   </div>
 </template>
 

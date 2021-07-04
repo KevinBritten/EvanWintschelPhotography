@@ -28,11 +28,6 @@ export default {
   created() {
     this.setGridColumnQuantity();
   },
-  beforeRouteEnter(to, from, next) {
-    console.log("awdaw");
-    document.scrollingElement.scrollTop = 0;
-    next();
-  },
 };
 </script>
 

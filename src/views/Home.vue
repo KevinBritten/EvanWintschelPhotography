@@ -30,9 +30,11 @@ export default {
 
 <style scoped>
 .homepage-item-container {
-  margin: 20%;
+  padding: 10%;
+  margin: 10%;
   text-align: center;
   display: flex;
   flex-direction: column;
+  border: double gray 6px;
 }
 </style>

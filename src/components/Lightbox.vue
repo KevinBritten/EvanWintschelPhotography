@@ -155,7 +155,6 @@ export default {
 }
 
 img {
-  /* height: 100%; */
   object-fit: contain;
 }
 

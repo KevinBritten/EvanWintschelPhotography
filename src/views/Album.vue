@@ -23,14 +23,11 @@
 </template>
 
 <script>
-import sanity from "../sanity";
-import imageUrlBuilder from "@sanity/image-url";
 import TitleCard from "../components/TitleCard.vue";
 import ContentGrid from "../components/ContentGrid.vue";
 import ImageCard from "../components/ImageCard.vue";
 import Lightbox from "../components/Lightbox.vue";
 
-const imageBuilder = imageUrlBuilder(sanity);
 export default {
   name: "Album",
   components: { TitleCard, ContentGrid, ImageCard, Lightbox },

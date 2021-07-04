@@ -93,7 +93,7 @@ body::-webkit-scrollbar {
 
 #app {
   margin: 0;
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  /* font-family: "Avenir", Helvetica, Arial, sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -137,6 +137,11 @@ nav a {
 body {
   margin: 0;
   padding: 0;
+  font-family: "Bitter", serif;
+}
+
+h1 {
+  font-family: "Open Sans Condensed", sans-serif;
 }
 
 @media only screen and (max-width: 991px) {

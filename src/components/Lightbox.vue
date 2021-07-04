@@ -126,6 +126,7 @@ export default {
 .close-button,
 .nav-arrow {
   position: fixed;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 50px;
   z-index: 15;
   cursor: pointer;
@@ -138,12 +139,12 @@ export default {
 
 .nav-arrow {
   top: 50%;
-  left: 2%;
+  left: 5px;
 }
 
 .--next {
   left: auto;
-  right: 2%;
+  right: 5px;
 }
 
 .image-contianer {
@@ -156,6 +157,7 @@ export default {
 
 img {
   object-fit: contain;
+  max-width: 96%;
 }
 
 @media only screen and (max-width: 991px) {

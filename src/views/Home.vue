@@ -2,7 +2,7 @@
   <div>
     <content-grid>
       <div class="homepage-item-container">
-        <p style="font-size: 4rem; text-align: center">EVAN<br />WINTSCHEL</p>
+        <h1 style="font-size: 4rem; text-align: center">EVAN<br />WINTSCHEL</h1>
       </div>
       <div class="homepage-item-container">
         <p>
@@ -36,5 +36,6 @@ export default {
   display: flex;
   flex-direction: column;
   border: double gray 6px;
+  max-width: 100%;
 }
 </style>

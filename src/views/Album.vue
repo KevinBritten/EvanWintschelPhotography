@@ -63,7 +63,6 @@ export default {
     }
   },
   beforeMount() {
-    console.log("awdaw");
     document.scrollingElement.scrollTop = 0;
   },
 

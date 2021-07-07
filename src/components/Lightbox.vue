@@ -1,12 +1,16 @@
 <template>
   <div>
-    <transition name="fade">
-      <div v-if="!allImagesLoaded" class="loading-overlay">...LOADING</div>
-    </transition>
+    <!-- <transition name="fade"> -->
+    <!-- <loading-animation
+        v-if="!allImagesLoaded"
+        class="loading-overlay"
+      ></loading-animation> -->
+    <LoadingAnimation v-if="!currentImageLoaded" />
+    <!-- </transition> -->
     <div
       ref="lightbox"
       class="lightbox"
-      :class="{ '--visible': allImagesLoaded }"
+      :class="{ '--visible': currentImageLoaded }"
     >
       <span class="close-button" @click="$emit('closeLightbox')"> X </span>
       <span class="nav-arrow" @click="$emit('incrementSlide', -1)"> &lt; </span>
@@ -32,7 +36,7 @@
           sizes="90vw,"
           :src="`${imageUrlFor(image.image)}`"
           :alt="image.imageName.name"
-          @load="loadedImages++"
+          @load="loadedImages.push(index)"
         />
       </div>
     </div>
@@ -43,24 +47,26 @@
 import sanity from "../sanity";
 import imageUrlBuilder from "@sanity/image-url";
 const imageBuilder = imageUrlBuilder(sanity);
+import LoadingAnimation from "./LoadingAnimation.vue";
 
 export default {
   name: "Lightbox",
   props: ["album", "currentIndex"],
   data() {
-    return { loadedImages: 0 };
+    return { loadedImages: [] };
   },
+  components: { LoadingAnimation },
   created() {
     window.addEventListener("keydown", (e) => this.incrementSlideKey(e));
   },
   computed: {
-    allImagesLoaded() {
-      return this.loadedImages == this.album.images.length;
+    currentImageLoaded() {
+      return this.loadedImages.includes(this.currentIndex);
     },
   },
   watch: {
     currentIndex: "updateScrollPosition",
-    allImagesLoaded: "updateScrollPosition",
+    currentImageLoaded: "updateScrollPosition",
   },
   methods: {
     imageUrlFor(source) {

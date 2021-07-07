@@ -1,5 +1,6 @@
 <template>
-  <div id="app" :class="{ 'overflow-hidden': $store.state.lightboxOpen }">
+  <!-- <div id="app" :class="{ 'overflow-hidden': hideScrollBarDelay }"> -->
+  <div id="app">
     <nav>
       <router-link :to="'/'">Home</router-link>
       <router-link
@@ -62,8 +63,13 @@ export default {
   },
   watch: {
     lightboxOpen() {
+      const timer = () => {
+        setTimeout(() => {
+          document.body.style.overflow = "hidden";
+        }, 500);
+      };
       if (this.lightboxOpen) {
-        document.body.style.overflow = "hidden";
+        timer();
       } else {
         document.body.style.overflow = "initial";
       }

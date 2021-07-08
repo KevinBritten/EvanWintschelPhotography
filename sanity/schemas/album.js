@@ -6,7 +6,7 @@ export default {
     {
       name: "title",
       title: "Title",
-      type: "string"
+      type: "string",
     },
     {
       name: "images",
@@ -28,59 +28,53 @@ export default {
                 {
                   name: "name",
                   title: "Name",
-                  type: "string"
-                }
-              ]
+                  type: "string",
+                },
+              ],
             },
             {
-              // name: "imageDimensions",
-              // title: "Image Dimensions",
-              // type: "object",
-
-              // fields: [
-              // {
               name: "width",
               title: "Width",
               type: "number",
               initialValue: 1,
-              validation: Rule =>
+              validation: (Rule) =>
                 Rule.required()
                   .min(1)
-                  .max(3)
+                  .max(3),
             },
             {
               name: "height",
               title: "Height",
               type: "number",
               initialValue: 1,
-              validation: Rule =>
+              validation: (Rule) =>
                 Rule.required()
                   .min(1)
-                  .max(3)
+                  .max(3),
               // }
               // ]
             },
             {
               name: "image",
               title: "Image",
-              type: "image"
-            }
+              type: "image",
+            },
           ],
           preview: {
             select: {
               title: "imageName",
-              media: "image"
+              media: "image",
             },
             prepare(selection) {
               const { title, media } = selection;
               return {
                 title: title.name,
-                media: media
+                media: media,
               };
-            }
-          }
-        }
-      ]
-    }
-  ]
+            },
+          },
+        },
+      ],
+    },
+  ],
 };

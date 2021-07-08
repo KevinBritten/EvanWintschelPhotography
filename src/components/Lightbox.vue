@@ -8,8 +8,8 @@
     >
       <!-- <div ref="lightbox" class="lightbox --visible"> -->
       <span class="close-button" @click="$emit('closeLightbox')"> X </span>
-      <span class="nav-arrow" @click="$emit('incrementSlide', -1)"> &lt; </span>
-      <span class="nav-arrow --next" @click="$emit('incrementSlide', 1)">
+      <span class="nav-arrow" :class="{'--disabled' : disableIncrementSlide.previous}" @click="incrementSlide(-1)"> &lt; </span>
+      <span class="nav-arrow --next" :class="{'--disabled' : disableIncrementSlide.next}" @click="incrementSlide(1)">
         >
       </span>
       <div
@@ -61,6 +61,12 @@ export default {
     currentImageLoaded() {
       return this.loadedImages.includes(this.currentIndex);
     },
+    disableIncrementSlide() {
+      return {
+        previous: this.currentIndex <= 0,
+        next: this.currentIndex >= this.album.images.length -1
+      }
+    }
     // lightboxScroll() {
     //   return this.$refs["lightbox"].scrollLeft;
     // },
@@ -86,12 +92,18 @@ export default {
     },
     incrementSlideKey(e) {
       if (e.keyCode === 39) {
-        this.$emit("incrementSlide", 1);
+        this.incrementSlide(1);
       } else if (e.keyCode === 37) {
-        this.$emit("incrementSlide", -1);
+        this.incrementSlide(-1);
       } else if (e.keyCode === 27) {
         this.$emit("closeLightbox");
       }
+    },
+      incrementSlide(direction) {
+    const directionName = direction == 1 ? 'next' : 'previous'
+      if (!this.disableIncrementSlide[directionName]) {
+      this.currentIndex += direction
+    }
     },
     isLastImage(index) {
       return index == this.album.images.length - 1;
@@ -158,6 +170,11 @@ export default {
 .--next {
   left: auto;
   right: 3rem;
+}
+
+.--disabled {
+  opacity: 0.5;
+  cursor: initial
 }
 
 .image-contianer {

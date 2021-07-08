@@ -17,7 +17,6 @@
       :album="album"
       @closeLightbox="$store.commit('toggleLightbox')"
       :currentIndex="currentIndex"
-      @incrementSlide="incrementSlide"
     />
   </div>
 </template>
@@ -72,14 +71,6 @@ export default {
         this.currentIndex = index;
         this.$store.commit("toggleLightbox");
       }
-    },
-    incrementSlide(direction) {
-      const albumSize = this.album.images.length;
-      const updatedIndex = (this.currentIndex += direction);
-      this.currentIndex =
-        updatedIndex < 0 || updatedIndex >= albumSize
-          ? (updatedIndex + albumSize) % albumSize
-          : updatedIndex;
     },
   },
 };

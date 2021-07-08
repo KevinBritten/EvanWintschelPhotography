@@ -1,17 +1,12 @@
 <template>
   <div>
-    <!-- <transition name="fade"> -->
-    <!-- <loading-animation
-        v-if="!allImagesLoaded"
-        class="loading-overlay"
-      ></loading-animation> -->
-    <LoadingAnimation v-if="!currentImageLoaded" />
-    <!-- </transition> -->
+    <!-- <LoadingAnimation v-if="!currentImageLoaded" /> -->
     <div
       ref="lightbox"
       class="lightbox"
       :class="{ '--visible': currentImageLoaded }"
     >
+      <!-- <div ref="lightbox" class="lightbox --visible"> -->
       <span class="close-button" @click="$emit('closeLightbox')"> X </span>
       <span class="nav-arrow" @click="$emit('incrementSlide', -1)"> &lt; </span>
       <span class="nav-arrow --next" @click="$emit('incrementSlide', 1)">
@@ -25,7 +20,7 @@
         :class="{ 'image-container--last': isLastImage(index) }"
       >
         <img
-          :srcset="`
+          :data-srcset="`
                     ${imageUrlFor(image.image).width(600)} 600w,
                     ${imageUrlFor(image.image).width(800)} 800w,          
                     ${imageUrlFor(image.image).width(1200)} 1200w,          
@@ -34,7 +29,7 @@
                     ${imageUrlFor(image.image).width(2400)} 2400w,          
            `"
           sizes="90vw,"
-          :src="`${imageUrlFor(image.image)}`"
+          v-lazy="`${imageUrlFor(image.image)}`"
           :alt="image.imageName.name"
           @load="loadedImages.push(index)"
         />
@@ -53,7 +48,10 @@ export default {
   name: "Lightbox",
   props: ["album", "currentIndex"],
   data() {
-    return { loadedImages: [] };
+    return {
+      loadedImages: [],
+      // lightboxScroll: this.$refs["lightbox"].scrollLeft,
+    };
   },
   components: { LoadingAnimation },
   created() {
@@ -63,11 +61,19 @@ export default {
     currentImageLoaded() {
       return this.loadedImages.includes(this.currentIndex);
     },
+    // lightboxScroll() {
+    //   return this.$refs["lightbox"].scrollLeft;
+    // },
   },
   watch: {
     currentIndex: "updateScrollPosition",
     currentImageLoaded: "updateScrollPosition",
+    lightboxScroll: () => {
+      this.$Lazyload.lazyLoadHandler();
+      console.log("awdawd");
+    },
   },
+
   methods: {
     imageUrlFor(source) {
       return imageBuilder.image(source);
@@ -76,6 +82,7 @@ export default {
       const scrollPosition =
         this.$refs[`image${this.currentIndex}`][0].offsetLeft;
       this.$refs["lightbox"].scrollLeft = scrollPosition;
+      this.$Lazyload.lazyLoadHandler();
     },
     incrementSlideKey(e) {
       if (e.keyCode === 39) {
@@ -101,11 +108,11 @@ export default {
   bottom: 0;
   left: 0;
   display: flex;
-  overflow: hidden;
+  overflow: scroll;
   padding: 8rem 0 50px;
   background-color: white;
   opacity: 0;
-  transition: opacity 500ms ease-in;
+  transition: opacity 1s cubic-bezier(0.63, 0.18, 0.95, 0.18);
   z-index: 20;
 }
 
@@ -139,18 +146,18 @@ export default {
   user-select: none;
 }
 .close-button {
-  right: 2rem;
+  right: 3rem;
   top: 3.5rem;
 }
 
 .nav-arrow {
   top: 50%;
-  left: 5px;
+  left: 3rem;
 }
 
 .--next {
   left: auto;
-  right: 5px;
+  right: 3rem;
 }
 
 .image-contianer {

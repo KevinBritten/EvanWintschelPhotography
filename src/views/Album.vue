@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ContentGrid :class="{ 'scrollbars-hidden': $store.state.lightboxOpen }">
+    <ContentGrid>
       <TitleCard :title="`${album.title}`" :grid-columns="gridColumns" />
       <ImageCard
         v-for="(image, index) in album.images"
@@ -68,8 +68,10 @@ export default {
 
   methods: {
     openLightbox(index) {
-      this.currentIndex = index;
-      this.$store.commit("toggleLightbox");
+      if (this.gridColumns > 1) {
+        this.currentIndex = index;
+        this.$store.commit("toggleLightbox");
+      }
     },
     incrementSlide(direction) {
       const albumSize = this.album.images.length;
@@ -82,14 +84,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.scrollbars-hidden {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-.scrollbars-hidden::-webkit-scrollbar {
-  display: none;
-}
-</style>

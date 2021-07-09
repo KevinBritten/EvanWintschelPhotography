@@ -136,28 +136,3 @@ nav a {
   overflow: hidden;
 }
 </style>
-
-<style>
-/* Global styles */
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Bitter", serif;
-}
-
-h1 {
-  font-family: "Open Sans Condensed", sans-serif;
-}
-
-@media only screen and (max-width: 991px) {
-  * {
-    box-sizing: border-box;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-  *::-webkit-scrollbar {
-    display: none;
-  }
-}
-</style>

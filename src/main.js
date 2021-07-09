@@ -6,6 +6,8 @@ import VueLazyload from "vue-lazyload";
 import Loading from "../public/loading.svg";
 import Store from "./store.js";
 
+import "./styles/global.css";
+
 console.log(Loading);
 
 Vue.config.productionTip = false;

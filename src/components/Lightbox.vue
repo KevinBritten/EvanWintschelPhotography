@@ -8,8 +8,18 @@
     >
       <!-- <div ref="lightbox" class="lightbox --visible"> -->
       <span class="close-button" @click="$emit('closeLightbox')"> X </span>
-      <span class="nav-arrow" :class="{'--disabled' : disableIncrementSlide.previous}" @click="incrementSlide(-1)"> &lt; </span>
-      <span class="nav-arrow --next" :class="{'--disabled' : disableIncrementSlide.next}" @click="incrementSlide(1)">
+      <span
+        class="nav-arrow"
+        :class="{ '--disabled': disableIncrementSlide.previous }"
+        @click="incrementSlide(-1)"
+      >
+        &lt;
+      </span>
+      <span
+        class="nav-arrow --next"
+        :class="{ '--disabled': disableIncrementSlide.next }"
+        @click="incrementSlide(1)"
+      >
         >
       </span>
       <div
@@ -50,7 +60,6 @@ export default {
   data() {
     return {
       loadedImages: [],
-      // lightboxScroll: this.$refs["lightbox"].scrollLeft,
     };
   },
   components: { LoadingAnimation },
@@ -64,12 +73,9 @@ export default {
     disableIncrementSlide() {
       return {
         previous: this.currentIndex <= 0,
-        next: this.currentIndex >= this.album.images.length -1
-      }
-    }
-    // lightboxScroll() {
-    //   return this.$refs["lightbox"].scrollLeft;
-    // },
+        next: this.currentIndex >= this.album.images.length - 1,
+      };
+    },
   },
   watch: {
     currentIndex: "updateScrollPosition",
@@ -99,11 +105,11 @@ export default {
         this.$emit("closeLightbox");
       }
     },
-      incrementSlide(direction) {
-    const directionName = direction == 1 ? 'next' : 'previous'
+    incrementSlide(direction) {
+      const directionName = direction == 1 ? "next" : "previous";
       if (!this.disableIncrementSlide[directionName]) {
-      this.currentIndex += direction
-    }
+        this.currentIndex += direction;
+      }
     },
     isLastImage(index) {
       return index == this.album.images.length - 1;
@@ -174,7 +180,7 @@ export default {
 
 .--disabled {
   opacity: 0.5;
-  cursor: initial
+  cursor: initial;
 }
 
 .image-contianer {

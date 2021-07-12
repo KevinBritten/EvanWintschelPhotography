@@ -135,4 +135,21 @@ nav a {
 .overflow-hidden {
   overflow: hidden;
 }
+
+@media only screen and (max-width: 991px) {
+  nav {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    padding: 50px 20px;
+    height: auto;
+    width: 75%;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  nav a {
+    margin: 10px 0;
+  }
+}
 </style>

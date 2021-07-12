@@ -13,11 +13,6 @@ console.log(Loading);
 Vue.config.productionTip = false;
 Vue.use(Vuex).use(VueLazyload, {
   loading: Loading,
-  // observer: true,
-  // observerOptions: {
-  //   rootMargin: "0px",
-  //   threshold: 0,
-  // },
 });
 const store = new Vuex.Store(Store);
 new Vue({

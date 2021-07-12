@@ -51,8 +51,6 @@ export default {
                 Rule.required()
                   .min(1)
                   .max(3),
-              // }
-              // ]
             },
             {
               name: "image",

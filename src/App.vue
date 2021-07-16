@@ -2,7 +2,8 @@
   <!-- <div id="app" :class="{ 'overflow-hidden': hideScrollBarDelay }"> -->
   <div id="app">
     <nav>
-      <router-link :to="'/'">Home</router-link>
+      <router-link :to="'/'" class="home-link">Home</router-link>
+      <span>albums:</span>
       <router-link
         v-for="album in albums"
         :key="album.title"
@@ -116,20 +117,30 @@ nav {
   align-items: center;
   top: 0;
   left: 0;
-  width: 100%;
+  right: 0;
+  padding: 0 40px;
   background-color: #333;
-  font-size: 1rem;
+  font-size: 1.2rem;
   height: 3.5rem;
-  justify-content: flex-start;
+  justify-content: flex-end;
   z-index: 30;
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
-  text-align: center;
   padding: 0 1rem;
   font-weight: 700;
+}
+
+nav span {
+  color: #bfbfbf;
+  padding-right: 20px;
+  font-size: 0.8rem;
+}
+
+.home-link {
+  flex-grow: 1;
 }
 
 .overflow-hidden {

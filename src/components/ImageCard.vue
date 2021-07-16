@@ -60,7 +60,7 @@ export default {
 <style scoped>
 .image-container {
   display: flex;
-  padding: 20px 10px;
+  padding: 5px 2px;
   margin: 10px;
   min-height: 100px;
   opacity: 0;
@@ -71,6 +71,7 @@ img {
   display: block;
   width: 100%;
   object-fit: contain;
+  cursor: pointer;
 }
 
 .--visible {

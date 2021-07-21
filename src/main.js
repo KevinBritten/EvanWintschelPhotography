@@ -8,8 +8,6 @@ import Store from "./store.js";
 
 import "./styles/global.css";
 
-console.log(Loading);
-
 Vue.config.productionTip = false;
 Vue.use(Vuex).use(VueLazyload, {
   loading: Loading,

@@ -52,14 +52,7 @@ export default {
         return window.innerWidth < b;
       }) + 1 || 3;
   },
-  async beforeRouteUpdate(to, from, next) {
-    await this.$store.commit("closeLightbox");
-    next();
-  },
-  async beforeRouteLeave(to, from, next) {
-    await this.$store.commit("closeLightbox");
-    next();
-  },
+
   beforeMount() {
     document.scrollingElement.scrollTop = 0;
   },

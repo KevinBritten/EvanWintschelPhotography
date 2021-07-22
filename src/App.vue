@@ -12,7 +12,7 @@
         {{ album.title }}
       </router-link>
     </nav> -->
-    <Header :albums="albums" />
+    <Header v-show="$store.state.mobileMenuOpen" />
     <transition name="fade" mode="out-in">
       <router-view :key="$route.fullPath" />
     </transition>
@@ -32,11 +32,11 @@ export default {
   name: "app",
   components: { SiteFooter, Header },
 
-  data() {
-    return {
-      albums: [],
-    };
-  },
+  // data() {
+  //   return {
+  //     albums: [],
+  //   };
+  // },
   computed: {
     lightboxOpen() {
       return this.$store.state.lightboxOpen;
@@ -61,7 +61,7 @@ export default {
     async setAlbums() {
       const payload = await this.fetchData();
       this.$store.commit("setAlbums", payload);
-      this.albums = this.$store.state.albums;
+      // this.albums = this.$store.state.albums;
     },
   },
   watch: {
@@ -113,7 +113,7 @@ body::-webkit-scrollbar {
   position: relative;
 }
 
-nav {
+/* nav {
   position: fixed;
   display: flex;
   align-items: center;
@@ -169,5 +169,5 @@ nav span {
     flex-grow: initial;
     padding-bottom: 20px;
   }
-}
+} */
 </style>

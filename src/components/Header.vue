@@ -1,38 +1,48 @@
 <template>
   <div>
     <nav>
-      <span class="mobile-close-btn" v-if="isMobile">X</span>
-      <router-link :to="'/'" class="home-link">Home</router-link>
-      <span>albums:</span>
-      <router-link
-        v-for="album in albums"
-        :key="album.title"
-        :to="'/album/' + album.title"
+      <span
+        v-if="$store.state.isMobile"
+        class="mobile-close-btn"
+        @click="$store.commit('mobileMenuOpen', false)"
+        >X</span
       >
-        {{ album.title }}
-      </router-link>
+      <div @click="closeAllOverlays">
+        <router-link :to="'/'" class="home-link">Home</router-link>
+      </div>
+      <span>albums:</span>
+      <div
+        @click="closeAllOverlays"
+        v-for="album in $store.state.albums"
+        :key="album.title"
+      >
+        <router-link :to="'/album/' + album.title">
+          {{ album.title }}
+        </router-link>
+      </div>
     </nav>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      isMobile: false,
-    };
-  },
   props: ["albums"],
   created() {
     const breakpointIndex = this.$store.state.breakpoints.findIndex((b) => {
       return window.innerWidth < b;
     });
-    this.isMobile = breakpointIndex < 2 && breakpointIndex > -1;
+    this.$store.commit("isMobile", breakpointIndex < 2 && breakpointIndex > -1);
+  },
+  methods: {
+    closeAllOverlays() {
+      this.$store.commit("mobileMenuOpen", false);
+      this.$store.commit("closeLightbox");
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 nav {
   position: fixed;
   display: flex;
@@ -54,13 +64,15 @@ nav {
   top: 1em;
   font-size: 20px;
   font-family: sans-serif;
+  cursor: pointer;
 }
 
-nav a {
+a {
   color: #fff;
   text-decoration: none;
   padding: 0 1rem;
   font-weight: 700;
+  display: inline-block;
 }
 
 nav span {
@@ -90,8 +102,8 @@ nav span {
     align-items: center;
     justify-content: center;
   }
-  nav a {
-    margin: 10px 0;
+  a {
+    margin: 5px 0;
   }
   .home-link {
     position: fixed;

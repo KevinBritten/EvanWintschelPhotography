@@ -9,7 +9,6 @@ export default {
   name: "ContentGrid",
   data() {
     return {
-      breakpoints: [767, 991, 1400],
       gridColumns: 0,
     };
   },
@@ -20,7 +19,7 @@ export default {
     },
     setGridColumnQuantity() {
       this.gridColumns =
-        this.breakpoints.findIndex((b) => {
+        this.$store.state.breakpoints.findIndex((b) => {
           return window.innerWidth < b;
         }) + 1 || 3;
     },

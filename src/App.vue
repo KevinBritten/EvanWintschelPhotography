@@ -1,7 +1,7 @@
 <template>
   <!-- <div id="app" :class="{ 'overflow-hidden': hideScrollBarDelay }"> -->
   <div id="app">
-    <nav>
+    <!-- <nav>
       <router-link :to="'/'" class="home-link">Home</router-link>
       <span>albums:</span>
       <router-link
@@ -11,7 +11,8 @@
       >
         {{ album.title }}
       </router-link>
-    </nav>
+    </nav> -->
+    <Header :albums="albums" />
     <transition name="fade" mode="out-in">
       <router-view :key="$route.fullPath" />
     </transition>
@@ -23,12 +24,13 @@
 import sanity from "./sanity";
 
 import SiteFooter from "./components/SiteFooter.vue";
+import Header from "./components/Header.vue";
 
 const query = `*[_type == "album"]`;
 
 export default {
   name: "app",
-  components: { SiteFooter },
+  components: { SiteFooter, Header },
 
   data() {
     return {

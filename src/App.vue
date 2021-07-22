@@ -135,7 +135,7 @@ nav a {
 
 nav span {
   color: #bfbfbf;
-  padding-right: 20px;
+  padding: 0 20px;
   font-size: 0.8rem;
 }
 
@@ -157,10 +157,15 @@ nav span {
     height: auto;
     width: 75%;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
   }
   nav a {
     margin: 10px 0;
+  }
+  .home-link {
+    flex-grow: initial;
+    padding-bottom: 20px;
   }
 }
 </style>

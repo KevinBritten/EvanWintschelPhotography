@@ -7,6 +7,7 @@ import Loading from "../public/loading.svg";
 import Store from "./store.js";
 
 import "./styles/global.css";
+import "./styles/hamburger.css";
 
 Vue.config.productionTip = false;
 Vue.use(Vuex).use(VueLazyload, {

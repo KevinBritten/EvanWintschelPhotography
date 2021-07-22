@@ -1,18 +1,17 @@
 <template>
-  <!-- <div id="app" :class="{ 'overflow-hidden': hideScrollBarDelay }"> -->
   <div id="app">
-    <!-- <nav>
-      <router-link :to="'/'" class="home-link">Home</router-link>
-      <span>albums:</span>
-      <router-link
-        v-for="album in albums"
-        :key="album.title"
-        :to="'/album/' + album.title"
-      >
-        {{ album.title }}
-      </router-link>
-    </nav> -->
-    <Header v-show="$store.state.mobileMenuOpen" />
+    <button
+      v-if="$store.state.isMobile"
+      class="hamburger hamburger--collapse"
+      :class="{ 'is-active': $store.state.mobileMenuOpen }"
+      type="button"
+      @click="$store.commit('mobileMenuOpen', !$store.state.mobileMenuOpen)"
+    >
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+    <Header v-show="$store.state.mobileMenuOpen || !$store.state.isMobile" />
     <transition name="fade" mode="out-in">
       <router-view :key="$route.fullPath" />
     </transition>
@@ -44,6 +43,10 @@ export default {
   },
   created() {
     this.setAlbums();
+    const breakpointIndex = this.$store.state.breakpoints.findIndex((b) => {
+      return window.innerWidth < b;
+    });
+    this.$store.commit("isMobile", breakpointIndex < 2 && breakpointIndex > -1);
   },
   methods: {
     fetchData() {
@@ -61,7 +64,6 @@ export default {
     async setAlbums() {
       const payload = await this.fetchData();
       this.$store.commit("setAlbums", payload);
-      // this.albums = this.$store.state.albums;
     },
   },
   watch: {
@@ -111,6 +113,13 @@ body::-webkit-scrollbar {
   height: 100%;
   min-height: 150vh;
   position: relative;
+}
+
+.hamburger {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 100;
 }
 
 /* nav {

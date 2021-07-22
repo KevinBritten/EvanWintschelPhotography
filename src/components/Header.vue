@@ -1,12 +1,6 @@
 <template>
   <div>
     <nav>
-      <span
-        v-if="$store.state.isMobile"
-        class="mobile-close-btn"
-        @click="$store.commit('mobileMenuOpen', false)"
-        >X</span
-      >
       <div @click="closeAllOverlays">
         <router-link :to="'/'" class="home-link">Home</router-link>
       </div>
@@ -27,12 +21,6 @@
 <script>
 export default {
   props: ["albums"],
-  created() {
-    const breakpointIndex = this.$store.state.breakpoints.findIndex((b) => {
-      return window.innerWidth < b;
-    });
-    this.$store.commit("isMobile", breakpointIndex < 2 && breakpointIndex > -1);
-  },
   methods: {
     closeAllOverlays() {
       this.$store.commit("mobileMenuOpen", false);

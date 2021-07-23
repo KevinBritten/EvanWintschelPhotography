@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav>
-      <div @click="closeAllOverlays">
+      <div @click="closeAllOverlays" role="button">
         <router-link :to="'/'" class="home-link">Home</router-link>
       </div>
       <span>albums:</span>
@@ -9,6 +9,7 @@
         @click="closeAllOverlays"
         v-for="album in $store.state.albums"
         :key="album.title"
+        role="button"
       >
         <router-link :to="'/album/' + album.title">
           {{ album.title }}
@@ -44,15 +45,6 @@ nav {
   height: 3.5rem;
   justify-content: flex-end;
   z-index: 30;
-}
-
-.mobile-close-btn {
-  position: fixed;
-  right: 1em;
-  top: 1em;
-  font-size: 20px;
-  font-family: sans-serif;
-  cursor: pointer;
 }
 
 a {

@@ -32,7 +32,6 @@ export default {
   components: { TitleCard, ContentGrid, ImageCard, Lightbox },
   data() {
     return {
-      breakpoints: [767, 991, 1400],
       gridColumns: 0,
       currentIndex: 0,
     };
@@ -48,7 +47,7 @@ export default {
   },
   created() {
     this.gridColumns =
-      this.breakpoints.findIndex((b) => {
+      this.$store.state.breakpoints.findIndex((b) => {
         return window.innerWidth < b;
       }) + 1 || 3;
   },

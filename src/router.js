@@ -22,6 +22,11 @@ export default new Router({
     },
     {
       path: "/*",
+      redirect: { name: "notFound" },
+    },
+    {
+      path: "/NotFound",
+      name: "notFound",
       component: NotFound,
     },
   ],

@@ -26,9 +26,16 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  padding: 60px;
 }
 h1 {
   text-align: center;
   font-size: 5em;
+}
+
+@media only screen and (max-width: 991px) {
+  .title-card {
+    padding: 20px;
+  }
 }
 </style>

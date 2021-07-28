@@ -13,36 +13,35 @@
     </button>
     <Header v-show="$store.state.mobileMenuOpen || !$store.state.isMobile" />
     <transition name="fade" mode="out-in">
-      <router-view :key="$route.fullPath" />
+      <router-view :key="$route.fullPath" v-if="albums" />
     </transition>
-    <SiteFooter />
   </div>
 </template>
 
 <script>
 import sanity from "./sanity";
 
-import SiteFooter from "./components/SiteFooter.vue";
 import Header from "./components/Header.vue";
 
 const query = `*[_type == "album"]`;
 
 export default {
   name: "app",
-  components: { SiteFooter, Header },
+  // components: { SiteFooter, Header },
+  components: { Header },
 
-  // data() {
-  //   return {
-  //     albums: [],
-  //   };
-  // },
+  data() {
+    return {
+      albums: false,
+    };
+  },
   computed: {
     lightboxOpen() {
       return this.$store.state.lightboxOpen;
     },
   },
-  created() {
-    this.setAlbums();
+  async created() {
+    await this.setAlbums();
     const breakpointIndex = this.$store.state.breakpoints.findIndex((b) => {
       return window.innerWidth < b;
     });
@@ -64,19 +63,22 @@ export default {
     async setAlbums() {
       const payload = await this.fetchData();
       this.$store.commit("setAlbums", payload);
+      this.albums = payload;
     },
   },
   watch: {
     lightboxOpen() {
       const timer = () => {
-        setTimeout(() => {
-          document.body.style.overflow = "hidden";
-        }, 500);
+        // setTimeout(() => {
+        document.body.style.overflow = "hidden";
+        document.body.style.padding = "0 18px 0 0";
+        // }, 500);
       };
       if (this.lightboxOpen) {
         timer();
       } else {
         document.body.style.overflow = "initial";
+        document.body.style.padding = "0";
       }
     },
   },
@@ -111,7 +113,7 @@ body::-webkit-scrollbar {
   padding: 3.5rem 0 100px;
   width: 100%;
   height: 100%;
-  min-height: 150vh;
+  /* min-height: 150vh; */
   position: relative;
 }
 

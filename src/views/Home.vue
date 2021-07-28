@@ -57,5 +57,6 @@ export default {
   flex-direction: column;
   border: double gray 6px;
   max-width: 100%;
+  min-height: 100vh;
 }
 </style>

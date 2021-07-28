@@ -65,6 +65,12 @@ export default {
   components: { LoadingAnimation },
   created() {
     window.addEventListener("keydown", (e) => this.incrementSlideKey(e));
+    window.addEventListener("scroll", (e) => e.preventDefault());
+    window.addEventListener("scroll", (e) => console.log(e));
+  },
+  destroyed() {
+    window.removeEventListener("scroll", (e) => console.log(e));
+    window.removeEventListener("keydown", (e) => this.incrementSlideKey(e));
   },
   computed: {
     currentImageLoaded() {
@@ -121,8 +127,8 @@ export default {
 <style scoped>
 .lightbox {
   position: fixed;
+  width: 100%;
   top: 0;
-  right: 0;
   bottom: 0;
   left: 0;
   display: flex;
@@ -132,6 +138,7 @@ export default {
   opacity: 0;
   transition: opacity 1s cubic-bezier(0.63, 0.18, 0.95, 0.18);
   z-index: 20;
+  overflow-y: hidden;
 }
 
 .--visible {

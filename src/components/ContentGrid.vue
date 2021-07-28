@@ -1,10 +1,15 @@
 <template>
-  <div class="content-grid">
-    <slot></slot>
+  <div>
+    <div class="content-grid">
+      <slot></slot>
+    </div>
+    <!-- <SiteFooter /> -->
   </div>
 </template>
 
 <script>
+// import SiteFooter from "../components/SiteFooter.vue";
+
 export default {
   name: "ContentGrid",
   data() {
@@ -12,6 +17,8 @@ export default {
       gridColumns: 0,
     };
   },
+  // components: { SiteFooter },
+
   methods: {
     calculateGridItemWidth(size) {
       const computedSize = size > this.gridColumns ? this.gridColumns : size;

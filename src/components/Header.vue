@@ -1,9 +1,11 @@
 <template>
   <div>
-    <nav>
-      <div @click="closeAllOverlays" role="button">
-        <router-link :to="'/'" class="home-link">Home</router-link>
-      </div>
+    <nav
+      :class="{ 'scrollbar-replacement-padding': $store.state.lightboxOpen }"
+    >
+      <!-- <div @click="closeAllOverlays" role="button"> -->
+      <router-link :to="'/'" class="home-link">Home</router-link>
+      <!-- </div> -->
       <span>albums:</span>
       <div
         @click="closeAllOverlays"
@@ -67,6 +69,10 @@ nav span {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.scrollbar-replacement-padding {
+  padding-right: 58px;
 }
 
 @media only screen and (max-width: 991px) {

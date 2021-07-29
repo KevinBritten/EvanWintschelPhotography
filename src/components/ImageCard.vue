@@ -77,4 +77,16 @@ img {
 .--visible {
   opacity: 1;
 }
+
+@media only screen and (max-width: 767px) {
+  img {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
 </style>

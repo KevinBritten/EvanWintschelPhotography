@@ -165,7 +165,7 @@ export default {
 .nav-arrow {
   position: fixed;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 50px;
+  font-size: 40px;
   z-index: 15;
   cursor: pointer;
   user-select: none;
@@ -221,7 +221,7 @@ img {
   .close-button {
     right: auto;
     left: 20px;
-    top: 10px;
+    top: 15px;
   }
 }
 

@@ -213,6 +213,7 @@ img {
   }
   .lightbox {
     overflow: scroll;
+    padding: 1em 0 0;
   }
   .close-button {
     right: auto;

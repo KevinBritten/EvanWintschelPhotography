@@ -5,7 +5,6 @@
     :style="{
       'grid-column-end': calculateGridItemWidth(image.width),
       'grid-row-end': `span ${image.height || 1}`,
-      'border-bottom-color': calculateBorderColor(index, 'bottom'),
     }"
     @click="$emit('openLightbox', index)"
   >
@@ -34,20 +33,20 @@ import imageUrlBuilder from "@sanity/image-url";
 
 const imageBuilder = imageUrlBuilder(sanity);
 export default {
-  props: ["image", "index", "grid-columns"],
+  props: ["image", "index"],
   data() {
     return {
       imageLoaded: false,
     };
   },
+  computed: {
+    gridColumns() {
+      return this.$store.getters.gridColumns;
+    },
+  },
   methods: {
     imageUrlFor(source) {
       return imageBuilder.image(source);
-    },
-    calculateBorderColor(index) {
-      const borderColor =
-        "rgb(0, 0, 0, " + parseFloat((index + 1) * 0.07).toFixed(2) + ")";
-      return borderColor;
     },
     calculateGridItemWidth(size) {
       const computedSize = size > this.gridColumns ? this.gridColumns : size;

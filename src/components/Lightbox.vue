@@ -1,12 +1,10 @@
 <template>
   <div>
-    <!-- <LoadingAnimation v-if="!currentImageLoaded" /> -->
     <div
       ref="lightbox"
       class="lightbox"
       :class="{ '--visible': currentImageLoaded }"
     >
-      <!-- <div ref="lightbox" class="lightbox --visible"> -->
       <span class="close-button" @click="$emit('closeLightbox')"> X </span>
       <span
         class="nav-arrow"
@@ -52,7 +50,6 @@
 import sanity from "../sanity";
 import imageUrlBuilder from "@sanity/image-url";
 const imageBuilder = imageUrlBuilder(sanity);
-import LoadingAnimation from "./LoadingAnimation.vue";
 
 export default {
   name: "Lightbox",
@@ -62,7 +59,6 @@ export default {
       loadedImages: [],
     };
   },
-  components: { LoadingAnimation },
   created() {
     window.addEventListener("keydown", (e) => this.incrementSlideKey(e));
     window.addEventListener("scroll", (e) => e.preventDefault());

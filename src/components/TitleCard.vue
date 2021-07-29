@@ -12,11 +12,11 @@
 
 <script>
 export default {
-  props: ["title", "gridColumns"],
-  data() {
-    return {
-      titlePosition: Math.floor(Math.random() * (this.gridColumns + 1)),
-    };
+  props: ["title"],
+  computed: {
+    titlePosition() {
+      return Math.floor(Math.random() * (this.$store.getters.gridColumns + 1));
+    },
   },
 };
 </script>
@@ -26,7 +26,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 60px;
+  min-height: 200px;
 }
 h1 {
   text-align: center;
@@ -35,7 +35,13 @@ h1 {
 
 @media only screen and (max-width: 991px) {
   .title-card {
-    padding: 20px;
+    min-height: 100px;
+  }
+}
+
+@media only screen and (max-width: 767) {
+  .title-card {
+    min-height: 0;
   }
 }
 </style>

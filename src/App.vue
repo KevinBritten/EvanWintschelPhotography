@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <button
-      v-if="$store.state.isMobile"
+      v-if="$store.state.currentBreakpoint <= 1"
       class="hamburger hamburger--collapse"
       :class="{ 'is-active': $store.state.mobileMenuOpen }"
       type="button"
@@ -11,7 +11,9 @@
         <span class="hamburger-inner"></span>
       </span>
     </button>
-    <Header v-show="$store.state.mobileMenuOpen || !$store.state.isMobile" />
+    <Header
+      v-show="$store.state.mobileMenuOpen || $store.state.currentBreakpoint > 1"
+    />
     <transition name="fade" mode="out-in">
       <router-view :key="$route.fullPath" v-if="albums" />
     </transition>
@@ -22,12 +24,12 @@
 import sanity from "./sanity";
 
 import Header from "./components/Header.vue";
+var throttle = require("lodash.throttle");
 
 const query = `*[_type == "album"]`;
 
 export default {
   name: "app",
-  // components: { SiteFooter, Header },
   components: { Header },
 
   data() {
@@ -41,11 +43,18 @@ export default {
     },
   },
   async created() {
+    this.setCurrentBreakpoint();
     await this.setAlbums();
-    const breakpointIndex = this.$store.state.breakpoints.findIndex((b) => {
-      return window.innerWidth < b;
-    });
-    this.$store.commit("isMobile", breakpointIndex < 2 && breakpointIndex > -1);
+    const setBreakpointThrottled = throttle(
+      () => {
+        this.setCurrentBreakpoint();
+      },
+      100,
+      {
+        leading: false,
+      }
+    );
+    window.addEventListener("resize", setBreakpointThrottled);
   },
   methods: {
     fetchData() {
@@ -64,6 +73,9 @@ export default {
       const payload = await this.fetchData();
       this.$store.commit("setAlbums", payload);
       this.albums = payload;
+    },
+    setCurrentBreakpoint() {
+      this.$store.commit("setCurrentBreakpoint");
     },
   },
   watch: {
@@ -101,14 +113,12 @@ body::-webkit-scrollbar {
 
 #app {
   margin: 0;
-  /* font-family: "Avenir", Helvetica, Arial, sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   padding: 3.5rem 0 100px;
   width: 100%;
   height: 100%;
-  /* min-height: 150vh; */
   position: relative;
 }
 
@@ -118,62 +128,4 @@ body::-webkit-scrollbar {
   top: 10px;
   z-index: 100;
 }
-
-/* nav {
-  position: fixed;
-  display: flex;
-  align-items: center;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 0 40px;
-  background-color: #333;
-  font-size: 1.2rem;
-  height: 3.5rem;
-  justify-content: flex-end;
-  z-index: 30;
-}
-
-nav a {
-  color: #fff;
-  text-decoration: none;
-  padding: 0 1rem;
-  font-weight: 700;
-}
-
-nav span {
-  color: #bfbfbf;
-  padding: 0 20px;
-  font-size: 0.8rem;
-}
-
-.home-link {
-  flex-grow: 1;
-}
-
-.overflow-hidden {
-  overflow: hidden;
-}
-
-@media only screen and (max-width: 991px) {
-  nav {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: auto;
-    padding: 50px 20px;
-    height: auto;
-    width: 75%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  nav a {
-    margin: 10px 0;
-  }
-  .home-link {
-    flex-grow: initial;
-    padding-bottom: 20px;
-  }
-} */
 </style>

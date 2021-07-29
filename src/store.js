@@ -4,7 +4,7 @@ export default {
     lightboxOpen: false,
     breakpoints: [767, 991, 1400],
     mobileMenuOpen: false,
-    isMobile: false,
+    currentBreakpoint: 0,
   },
   mutations: {
     setAlbums(state, payload) {
@@ -19,8 +19,18 @@ export default {
     mobileMenuOpen(state, payload) {
       state.mobileMenuOpen = payload;
     },
-    isMobile(state, payload) {
-      state.isMobile = payload;
+
+    setCurrentBreakpoint(state) {
+      const searchBreakpoint = state.breakpoints.findIndex((b) => {
+        return window.innerWidth < b;
+      });
+      state.currentBreakpoint =
+        searchBreakpoint >= 0 ? searchBreakpoint : state.breakpoints.length - 1;
+    },
+  },
+  getters: {
+    gridColumns: (state) => {
+      return state.currentBreakpoint + 1;
     },
   },
 };

@@ -3,7 +3,8 @@
     <!-- <NotFound v-if="$store.state.albums.length < 1" /> -->
     <!-- <ContentGrid v-else> -->
     <ContentGrid>
-      <TitleCard :title="`${album.title}`" :grid-columns="gridColumns" />
+      <!-- <TitleCard :title="`${album.title}`" :grid-columns="gridColumns" /> -->
+      <TitleCard :title="`${album.title}`" />
       <ImageCard
         v-for="(image, index) in album.images"
         :key="image.key"
@@ -115,10 +116,10 @@ export default {
 
   methods: {
     openLightbox(index) {
-      if (this.gridColumns > 1) {
-        this.currentIndex = index;
-        this.$store.commit("toggleLightbox");
-      }
+      // if (window.innerWidth > this.$store.state.breakpoints[0]) {
+      this.currentIndex = index;
+      this.$store.commit("toggleLightbox");
+      // }
     },
     async closeAllOverlays() {
       this.$store.commit("mobileMenuOpen", false);

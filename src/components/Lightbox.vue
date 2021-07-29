@@ -218,6 +218,11 @@ img {
   .lightbox {
     overflow: scroll;
   }
+  .close-button {
+    right: auto;
+    left: 20px;
+    top: 10px;
+  }
 }
 
 .fade-enter-active {

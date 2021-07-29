@@ -118,7 +118,7 @@ body::-webkit-scrollbar {
 }
 
 .hamburger {
-  position: absolute;
+  position: fixed;
   right: 10px;
   top: 10px;
   z-index: 100;

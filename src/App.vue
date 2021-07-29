@@ -68,14 +68,9 @@ export default {
   },
   watch: {
     lightboxOpen() {
-      const timer = () => {
-        // setTimeout(() => {
+      if (this.lightboxOpen) {
         document.body.style.overflow = "hidden";
         document.body.style.padding = "0 18px 0 0";
-        // }, 500);
-      };
-      if (this.lightboxOpen) {
-        timer();
       } else {
         document.body.style.overflow = "initial";
         document.body.style.padding = "0";

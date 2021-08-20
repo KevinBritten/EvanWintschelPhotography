@@ -1,10 +1,10 @@
 <template>
   <div>
     <content-grid>
-      <div class="homepage-item-container">
+      <div class="homepage-item-container" id="title">
         <h1 style="font-size: 4rem; text-align: center">EVAN<br />WINTSCHEL</h1>
       </div>
-      <div class="homepage-item-container" ref="bioContainer"></div>
+      <div class="homepage-item-container" id="bio" ref="bioContainer"></div>
     </content-grid>
   </div>
 </template>
@@ -50,13 +50,27 @@ export default {
 
 <style scoped>
 .homepage-item-container {
-  padding: 10%;
-  margin: 10%;
+  /* padding: 10%; */
+  /* margin: 10%; */
   text-align: center;
   display: flex;
   flex-direction: column;
-  border: double gray 6px;
-  max-width: 100%;
-  min-height: 100vh;
+}
+
+#title {
+  grid-column-start: 2;
+}
+#bio {
+  grid-column-start: 3;
+  grid-row-start: 2;
+}
+
+@media only screen and (max-width: 767px) {
+  #title {
+    grid-column-start: 1;
+  }
+  #bio {
+    grid-column-start: 1;
+  }
 }
 </style>

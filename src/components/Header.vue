@@ -3,8 +3,8 @@
     <nav
       :class="{ 'scrollbar-replacement-padding': $store.state.lightboxOpen }"
     >
-      <div @click="closeAllOverlays" role="button">
-        <router-link :to="'/'" class="home-link">Home</router-link>
+      <div @click="closeAllOverlays" role="button" class="home-link">
+        <router-link :to="'/'">Home</router-link>
       </div>
       <span>albums:</span>
       <div

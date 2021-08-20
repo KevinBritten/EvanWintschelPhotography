@@ -1,7 +1,7 @@
 {
   "root": true,
   "project": {
-    "name": "ewtest"
+    "name": "Evan Winstschel Photography"
   },
   "api": {
     "projectId": "dcn6r48z",
@@ -17,9 +17,7 @@
   ],
   "env": {
     "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
+      "plugins": ["@sanity/vision"]
     }
   },
   "parts": [

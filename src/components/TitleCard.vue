@@ -30,7 +30,6 @@ export default {
 }
 h1 {
   text-align: center;
-  font-size: 5em;
 }
 
 @media only screen and (max-width: 991px) {

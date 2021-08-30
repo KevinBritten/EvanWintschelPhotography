@@ -168,7 +168,7 @@ export default {
 }
 .close-button {
   right: 3rem;
-  top: 3.5rem;
+  top: 4rem;
 }
 
 .nav-arrow {

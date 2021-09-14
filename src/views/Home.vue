@@ -32,7 +32,8 @@
                     )} 2000w,          
            `"
               sizes="(min-width: 767px) 50vw,
-           (min-width: 991px) 33vw,
+                         (min-width: 991px) 33vw,
+
            100vw,"
               :src="`${imageUrlFor(album.images[0].image)}`"
               :alt="album.images[0].imageName.name"
@@ -120,13 +121,6 @@ export default {
   transform: scale(1.1);
 }
 
-#title {
-  grid-column-start: 2;
-}
-#bio {
-  grid-column-start: 3;
-  grid-row-start: 2;
-}
 h1 {
   margin: 3rem 0 1rem;
 }
@@ -150,11 +144,30 @@ hr {
   .homepage {
     padding: 0 50px;
   }
+  .album-preview__container {
+    grid-template-columns: 1fr 1fr;
+  }
+  .album-preview__title-overlay {
+    position: absolute;
+    bottom: 0;
+    height: 20%;
+    width: 100%;
+    opacity: 1;
+  }
 }
 
 @media only screen and (max-width: 767px) {
   .homepage {
     padding: 0 10px;
+  }
+  .album-preview__container {
+    grid-template-columns: 1fr;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1rem;
   }
 }
 </style>

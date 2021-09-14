@@ -7,16 +7,27 @@
         <router-link :to="'/'">Home</router-link>
       </div>
       <span>albums:</span>
-      <div
-        @click="closeAllOverlays"
-        v-for="album in $store.state.albums"
-        :key="album.title"
-        role="button"
-      >
-        <router-link :to="'/album/' + album.title">
-          {{ album.title }}
-        </router-link>
+      <div class="header__link-container">
+        <div
+          @click="closeAllOverlays"
+          v-for="album in $store.state.albums"
+          :key="album.title"
+          role="button"
+        >
+          <router-link :to="'/album/' + album.title">
+            {{ album.title }}
+          </router-link>
+        </div>
       </div>
+      <a
+        class="header__social-icon"
+        href="https://www.instagram.com/evanwintschel/"
+        target="_blank"
+      >
+        <img
+          src="../../public/sm-icons-instagram-glyph-logo.png"
+          class="header__social-icon-image"
+      /></a>
     </nav>
   </div>
 </template>
@@ -74,6 +85,18 @@ nav span {
 .scrollbar-replacement-padding {
   padding-right: 58px;
 }
+.header__social-icon {
+  display: block;
+  margin-left: 50px;
+  height: 60%;
+  cursor: pointer;
+}
+.header__social-icon-image {
+  height: 100%;
+}
+.header__link-container {
+  display: flex;
+}
 
 @media only screen and (max-width: 991px) {
   nav {
@@ -89,13 +112,40 @@ nav span {
     justify-content: center;
   }
   a {
-    margin: 5px 0;
+    margin: 20px 0;
+    font-size: 3rem;
   }
+  .header__link-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
   .home-link {
     position: fixed;
     left: 1em;
     top: 1em;
     margin: 0;
+  }
+  .header__social-icon {
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+    width: 100px;
+    height: 100px;
+    margin-left: 0;
+    padding: 0;
+  }
+  .header__social-icon-image {
+    height: 100%;
+  }
+}
+@media only screen and (max-width: 767px) {
+  a {
+    font-size: 1.2rem;
+  }
+  .header__social-icon {
+    width: 50px;
+    height: 50px;
   }
 }
 </style>

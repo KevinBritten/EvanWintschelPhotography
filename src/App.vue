@@ -81,10 +81,10 @@ export default {
   watch: {
     lightboxOpen() {
       if (this.lightboxOpen) {
-        document.body.style.overflow = "hidden";
+        document.body.style.overflowY = "hidden";
         document.body.style.padding = "0 18px 0 0";
       } else {
-        document.body.style.overflow = "initial";
+        document.body.style.overflowY = "scroll";
         document.body.style.padding = "0";
       }
     },
@@ -103,7 +103,7 @@ export default {
 
 .fade-enter,
 .fade-leave-to {
-  transform: translateX(10px);
+  /* transform: translateX(10px); */
   opacity: 0;
 }
 

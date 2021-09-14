@@ -1,9 +1,6 @@
 <template>
   <div>
-    <!-- <NotFound v-if="$store.state.albums.length < 1" /> -->
-    <!-- <ContentGrid v-else> -->
     <ContentGrid>
-      <!-- <TitleCard :title="`${album.title}`" :grid-columns="gridColumns" /> -->
       <TitleCard :title="`${album.title}`" />
       <ImageCard
         v-for="(image, index) in album.images"
@@ -21,7 +18,6 @@
       @closeLightbox="$store.commit('toggleLightbox')"
       :currentIndex="currentIndex"
     />
-    <!-- <SiteFooter v-show="album" /> -->
   </div>
 </template>
 

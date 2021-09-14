@@ -121,9 +121,12 @@ nav span {
   }
 
   .home-link {
-    position: fixed;
-    left: 1em;
-    top: 1em;
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    margin: 0;
+  }
+  .home-link a {
     margin: 0;
   }
   .header__social-icon {

@@ -32,9 +32,8 @@
                     )} 2000w,          
            `"
               sizes="(min-width: 767px) 50vw,
-                         (min-width: 991px) 33vw,
-
-           100vw,"
+                     (min-width: 991px) 33vw,
+                     100vw,"
               :src="`${imageUrlFor(album.images[0].image)}`"
               :alt="album.images[0].imageName.name"
             />
@@ -122,7 +121,10 @@ export default {
 }
 
 h1 {
-  margin: 3rem 0 1rem;
+  margin: 3rem 0 0.5rem;
+}
+h2 {
+  margin-top: 0px;
 }
 a {
   text-decoration: none;

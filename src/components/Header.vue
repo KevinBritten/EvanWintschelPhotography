@@ -25,7 +25,7 @@
         target="_blank"
       >
         <img
-          src="../../public/sm-icons-instagram-glyph-logo.png"
+          src="../../public/iconmonstr-instagram-11.svg"
           class="header__social-icon-image"
       /></a>
     </nav>

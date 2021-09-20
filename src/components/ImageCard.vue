@@ -9,7 +9,7 @@
     @click="$emit('openLightbox', index)"
   >
     <img
-      :srcset="`${imageUrlFor(image.image).width(300)} 300w,
+      :data-srcset="`${imageUrlFor(image.image).width(300)} 300w,
                     ${imageUrlFor(image.image).width(600)} 600w,
                     ${imageUrlFor(image.image).width(800)} 800w,          
                     ${imageUrlFor(image.image).width(1200)} 1200w,          
@@ -19,7 +19,7 @@
       sizes="(min-width: 767px) 50vw,
            (min-width: 991px) 33vw,
            100vw,"
-      :src="`${imageUrlFor(image.image)}`"
+      v-lazy="`${imageUrlFor(image.image)}`"
       :alt="image.imageName.name"
       @load="imageLoaded = true"
     />

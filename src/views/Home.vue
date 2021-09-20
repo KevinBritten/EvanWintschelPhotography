@@ -87,14 +87,14 @@ export default {
   padding: 0 140px;
 }
 .homepage__title-container {
-  margin-bottom: 3rem;
+  margin-bottom: 150px;
 }
 .album-preview__container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-auto-rows: 300px;
   gap: 20px 20px;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .album-preview__link-container {
   width: 100%;
@@ -160,8 +160,14 @@ hr {
 }
 
 @media only screen and (max-width: 991px) {
+  h1 {
+    margin-bottom: 0.5rem;
+  }
   .homepage {
     padding: 0 50px;
+  }
+  .homepage__title-container {
+    margin-bottom: 40px;
   }
   .album-preview__container {
     grid-template-columns: 1fr 1fr;

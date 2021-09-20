@@ -1,7 +1,7 @@
 <template>
   <div class="homepage">
     <div class="homepage__title-container">
-      <h1>EVAN<br />WINTSCHEL</h1>
+      <h1>EVAN WINTSCHEL</h1>
       <h2>PHOTOGRAPHY</h2>
     </div>
     <h3>albums:</h3>
@@ -11,12 +11,16 @@
         v-for="album in $store.state.albums"
         :key="album.title + 'preview'"
         role="button"
+        class="album-preview__single-container"
+        :class="{ '--visible': currentImageLoaded }"
       >
         <router-link :to="'/album/' + album.title">
           <div class="album-preview__link-container">
             <img
               class="album-preview__image"
-              :srcset="`${imageUrlFor(album.images[0].image).width(300)} 300w,
+              :data-srcset="`${imageUrlFor(album.images[0].image).width(
+                300
+              )} 300w,
                     ${imageUrlFor(album.images[0].image).width(600)} 600w,
                     ${imageUrlFor(album.images[0].image).width(
                       800
@@ -34,8 +38,9 @@
               sizes="(min-width: 767px) 50vw,
                      (min-width: 991px) 33vw,
                      100vw,"
-              :src="`${imageUrlFor(album.images[0].image)}`"
+              v-lazy="`${imageUrlFor(album.images[0].image)}`"
               :alt="album.images[0].imageName.name"
+              @load="loadedImages.push(index)"
             />
             <div class="album-preview__title-overlay">
               <span class="album-preview__title">{{ album.title }}</span>
@@ -57,8 +62,13 @@ export default {
   name: "Home",
   data() {
     return {
-      bio: [],
+      loadedImages: [],
     };
+  },
+  computed: {
+    currentImageLoaded() {
+      return this.loadedImages.includes(this.currentIndex);
+    },
   },
   methods: {
     imageUrlFor(source) {
@@ -115,13 +125,20 @@ export default {
   transition: transform 200ms;
   object-fit: cover;
 }
+.album-preview__single-container {
+  opacity: 0;
+}
 
 .album-preview__link-container:hover .album-preview__image {
   transform: scale(1.1);
 }
 
+.--visible {
+  opacity: 1;
+}
+
 h1 {
-  margin: 3rem 0 0.5rem;
+  margin: 3rem 0 1.5rem;
 }
 h2 {
   margin-top: 0px;

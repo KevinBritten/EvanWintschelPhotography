@@ -12,12 +12,14 @@
         @openLightbox="openLightbox"
       />
     </ContentGrid>
-    <Lightbox
-      v-if="$store.state.lightboxOpen"
-      :album="album"
-      @closeLightbox="$store.commit('toggleLightbox')"
-      :currentIndex="currentIndex"
-    />
+    <Transition name="fade">
+      <Lightbox
+        v-if="$store.state.lightboxOpen"
+        :album="album"
+        @closeLightbox="$store.commit('toggleLightbox')"
+        :currentIndex="currentIndex"
+      />
+    </Transition>
   </div>
 </template>
 
@@ -81,3 +83,20 @@ export default {
   },
 };
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

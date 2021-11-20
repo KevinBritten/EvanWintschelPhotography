@@ -8,6 +8,8 @@ import Store from "./store.js";
 
 import "./styles/global.css";
 import "./styles/hamburger.css";
+import "@splidejs/splide/dist/css/splide.min.css";
+import "./styles/splide.css";
 
 Vue.config.productionTip = false;
 Vue.use(Vuex).use(VueLazyload, {

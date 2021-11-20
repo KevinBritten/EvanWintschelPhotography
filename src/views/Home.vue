@@ -179,6 +179,10 @@ hr {
     width: 100%;
     opacity: 1;
   }
+
+  .album-preview__link-container:hover .album-preview__image {
+    transform: initial;
+  }
 }
 
 @media only screen and (max-width: 767px) {

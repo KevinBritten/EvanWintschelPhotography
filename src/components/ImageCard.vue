@@ -6,7 +6,7 @@
       'grid-column-end': calculateGridItemWidth(image.width),
       'grid-row-end': `span ${image.height || 1}`,
     }"
-    @click="$emit('openLightbox', index)"
+    @click="openLightbox"
   >
     <img
       :data-srcset="`${imageUrlFor(image.image).width(300)} 300w,
@@ -51,6 +51,11 @@ export default {
     calculateGridItemWidth(size) {
       const computedSize = size > this.gridColumns ? this.gridColumns : size;
       return `span ${computedSize}`;
+    },
+    openLightbox() {
+      if (window.innerWidth > 766) {
+        this.$emit("openLightbox", this.index);
+      }
     },
   },
 };

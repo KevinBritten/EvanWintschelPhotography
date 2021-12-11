@@ -53,9 +53,7 @@ export default {
       return `span ${computedSize}`;
     },
     openLightbox() {
-      if (window.innerWidth > 766) {
-        this.$emit("openLightbox", this.index);
-      }
+      this.$emit("openLightbox", this.index);
     },
   },
 };

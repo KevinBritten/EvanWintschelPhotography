@@ -76,7 +76,9 @@ export default {
   right: 3rem;
   top: 4rem;
 }
-
+.splide-arrows {
+  display: none;
+}
 @media only screen and (max-width: 991px) {
   .close-button {
     right: auto;

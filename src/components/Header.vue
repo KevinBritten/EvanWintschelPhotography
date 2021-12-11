@@ -145,10 +145,11 @@ nav span {
 @media only screen and (max-width: 767px) {
   a {
     font-size: 1.7rem;
+    margin: 0.6rem;
   }
   .header__social-icon {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
   }
 }
 </style>

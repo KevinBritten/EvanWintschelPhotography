@@ -25,3 +25,12 @@
     height: 50px;
   }
 }
+
+@media only screen and (max-width: 767px) {
+  /* splide won't load on iphone with arrows set to display none for some reason. */
+  .splide__arrow {
+    bottom: -100%;
+    opacity: 0;
+    z-index: -100;
+  }
+}

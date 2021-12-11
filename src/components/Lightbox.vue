@@ -1,7 +1,13 @@
 <template>
   <div class="lightbox">
     <span class="close-button" @click="$emit('closeLightbox')"> X </span>
-    <Splide :options="{ rewind: true, start: currentIndex, type: 'loop' }">
+    <Splide
+      :options="{
+        rewind: true,
+        start: currentIndex,
+        type: 'loop',
+      }"
+    >
       <SplideSlide v-for="image in album.images" :key="image.imageName.name">
         <img
           :data-srcset="`
@@ -76,9 +82,7 @@ export default {
   right: 3rem;
   top: 4rem;
 }
-.splide-arrows {
-  display: none;
-}
+
 @media only screen and (max-width: 991px) {
   .close-button {
     right: auto;
